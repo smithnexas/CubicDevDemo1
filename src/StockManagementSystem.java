@@ -897,8 +897,16 @@ class courseWork{
 		String[] convertedPrices=new String[ar.length];
 		
 		for (int i = 0; i < ar.length; i++){
-			
-			ar[i]=Integer.parseInt(items[i][3]);
+			try {
+				if (items[i][3] != null && !items[i][3].trim().isEmpty()) {
+					ar[i] = Integer.parseInt(items[i][3].trim());
+				} else {
+					ar[i] = 0; // Default value for null or empty prices
+				}
+			} catch (NumberFormatException e) {
+				ar[i] = 0; // Default value for invalid format
+				System.err.println("Invalid price format for item at index " + i + ": " + items[i][3]);
+			}
 		}
 	
 		for (int i = 0; i < ar.length - 1; i++) {
